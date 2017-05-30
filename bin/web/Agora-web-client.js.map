@@ -1,0 +1,9 @@
+{
+"version":3,
+"file":"Agora-web-client.js",
+"sourceRoot":"file:///",
+"sources":["/var/calculate/home/endes/MEGAsync/agora/Agora-web-client/src/beartek/agora/client/web/Main.hx"],
+"sourcesContent":["package beartek.agora.client.web;\r\n\r\n/**\r\n * @author Beartek\r\n * GNU AGPL v3\r\n * https://taksio.tk/beartek/agora\r\n */\r\nclass Main\r\n{\r\n    static public function main()\r\n    {\r\n        trace(\"Hello World\");\r\n\t}\r\n}"],
+"names":[],
+"mappings":";;;qCASkB,WAEV;AAAA,aAAM;;;;;"
+}

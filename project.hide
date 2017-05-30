@@ -1,0 +1,62 @@
+{
+     "_hxcls" : "projectaccess.Project"
+    ,"type" : 2
+    ,"target" : javascript
+    ,"name" : "Agora web client"
+    ,"main" : "compile_web.hxml"
+    ,"projectPackage" : beartek.agora.client.web
+    ,"company" : Beartek
+    ,"license" : GNU AGPL v3
+    ,"url" : null
+    ,"targetData" : [
+
+    ]
+    ,"files" : [
+         {
+             "path" : "javascript.hxml"
+            ,"useTabs" : true
+            ,"indentSize" : 4
+            ,"foldedRegions" : [
+
+            ]
+            ,"activeLine" : 0
+        }
+        ,{
+             "path" : "src/beartek/agora/client/web/Main.hx"
+            ,"useTabs" : true
+            ,"indentSize" : 4
+            ,"foldedRegions" : [
+
+            ]
+            ,"activeLine" : 0
+        }
+        ,{
+             "path" : "src/beartek/utils/Wtp.hx"
+            ,"useTabs" : true
+            ,"indentSize" : 4
+            ,"foldedRegions" : [
+
+            ]
+            ,"activeLine" : 2
+        }
+        ,{
+             "path" : "src/beartek/agora/client/Protocol.hx"
+            ,"useTabs" : true
+            ,"indentSize" : 4
+            ,"foldedRegions" : [
+
+            ]
+            ,"activeLine" : 118
+        }
+    ]
+    ,"activeFile" : "src/beartek/agora/client/Protocol.hx"
+    ,"openFLTarget" : null
+    ,"openFLBuildMode" : "Debug"
+    ,"runActionType" : 2
+    ,"runActionText" : null
+    ,"buildActionCommand" : null
+    ,"hiddenItems" : [
+
+    ]
+    ,"showHiddenItems" : false
+}
