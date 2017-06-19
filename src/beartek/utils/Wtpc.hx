@@ -32,9 +32,15 @@ class Wtpc {
 			}
 	}	
 	
-	public function send( msg : String ) {
-		Sent_Bytes += msg.length;
-		connection.sendBytes(MsgPack.encode(msg));
+	inline public function make_pet( type : Pet_types, ?data : Dynamic = null ) {
+		this.send({type: type, data: data});
+	}
+
+	
+	private function send( msg : Dynamic ) {
+		var to_send : Bytes = MsgPack.encode(msg);
+		Sent_Bytes += to_send.length;
+		connection.sendBytes(to_send);
 	}
 	
 	public inline function refresh() {
@@ -45,11 +51,15 @@ class Wtpc {
 	public dynamic function on_open() {
 	}
 	
-	public dynamic function on_msg() {
+	public dynamic function on_msg( msg : Dynamic ) {
 	}
 	
-	public dynamic function on_error() {
+	public dynamic function on_error( msg : String ) {
 	}
-
-
 }
+
+enum Pet_types {
+		Get(method : String);
+		Create(method : String);
+		Remove(method : String);
+	}
