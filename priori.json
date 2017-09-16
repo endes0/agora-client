@@ -1,0 +1,40 @@
+{
+  "project_name" : "Agora web client",
+
+  "lang" : "es",
+
+  "meta" : [],
+
+  "link" : [
+    "<script src=\"https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js\"></script>"
+  ],
+
+  "dependencies" : [
+    "priori-bootstrap",
+    "priori-scenemanager",
+    "priori-fontawesome",
+    "actuate",
+    "siphash",
+    "haxe-ws",
+    "continuation",
+    "HtmlParser",
+    "datetime",
+    "haxe-strings",
+    "ckeditor-externs"
+  ],
+
+  "d_flags" : [
+    "prioridebug",
+    "debug",
+    "dummy_server"
+  ],
+
+  "main" : "beartek.agora.client.web.Main",
+
+  "src" : [
+    "src",
+    "agora-common/src"
+  ],
+
+  "output" : "build"
+}

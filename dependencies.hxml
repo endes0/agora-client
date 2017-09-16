@@ -1,0 +1,8 @@
+-lib haxe-ws
+-lib siphash
+-lib priori
+-lib priori-scenemanager
+-lib priori-bootstrap
+-lib priori-fontawesome
+-lib actuate
+-lib ckeditor-externs
