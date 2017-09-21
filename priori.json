@@ -33,7 +33,7 @@
 
   "src" : [
     "src",
-    "agora-common/src"
+    "Agora-common/src"
   ],
 
   "output" : "build"

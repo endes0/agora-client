@@ -1,10 +1,10 @@
 #integrate files to classpath
 -cp src
--cp agora-common/src
+-cp Agora-common/src
 
 #haxe libraries for your app.
 dependencies.hxml
-agora-common/dependencies.hxml
+Agora-common/dependencies.hxml
 
 #Generate source map and add debug information
 -debug
