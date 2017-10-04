@@ -1,0 +1,7 @@
+{
+  "name": "server_cfg",
+  "data": {
+    "name": "local",
+    "host": "localhost:8080"
+  }
+}

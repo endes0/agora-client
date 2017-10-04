@@ -9,6 +9,7 @@ import beartek.agora.types.Types;
 import beartek.agora.types.Tid;
 import beartek.agora.client.Protocol;
 import beartek.utils.Wtpc;
+import beartek.utils.Wtp_types;
 import haxe.io.Bytes;
 import haxe.Serializer;
 import haxe.Unserializer;
