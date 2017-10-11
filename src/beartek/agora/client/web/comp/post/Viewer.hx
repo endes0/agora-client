@@ -36,6 +36,13 @@ class Viewer extends PriGroup {
 
       title.text = post.get().info.title;
       subtitle.text = post.get().info.subtitle;
+      content.getElement().append(post.get().content.toString());
+    }, 'post_viewer');
+
+    G_connection.add_response_handler('post', function( raw_post : Post ) : Void {
+      this.post = new Tpost(raw_post);
+
+      content.getElement().append(post.get().content.toString());
     }, 'post_viewer');
 
     if( id != new Tid(post_info.id) && post_info == null ) {
@@ -44,9 +51,12 @@ class Viewer extends PriGroup {
       #if dummy_server
         G_connection.g().get_post(id, true, 'post_viewer');
       #else
-        G_connection.g().get_post(id, 'post_viewer');
+        G_connection.g().get_post(id, false, 'post_viewer');
       #end
     }
+
+    title.text = post_info.title;
+    subtitle.text = post_info.subtitle;
   }
 
   override private function setup() : Void {
@@ -60,7 +70,7 @@ class Viewer extends PriGroup {
     title.fontSize = 40;
     title.setCSS('word-break', 'break-all');
     title.setCSS('white-space', '');
-    title.text = post.get().info.title;
+    if(title.text == null) title.text = 'Loading...';
 
     var s_style : PriFontStyle = new PriFontStyle(0x757575);
     s_style.weight = PriFontStyleWeight.LIGHTER;
@@ -68,9 +78,7 @@ class Viewer extends PriGroup {
     subtitle.fontSize = 25;
     subtitle.setCSS('word-break', 'break-all');
     subtitle.setCSS('white-space', '');
-    subtitle.text = post.get().info.subtitle;
-
-    content.getElement().append(post.get().content.toString());
+    if(title.text == null) subtitle.text = 'Loading...';
 
     post_container.addChild(title);
     post_container.addChild(subtitle);

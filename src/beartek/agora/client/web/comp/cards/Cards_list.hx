@@ -64,8 +64,8 @@ class Cards_list extends PriGroup {
       this._childList = [];
       this.addChild(header);
       this.addChildList(cards);
-    } else if( this._childList.length < cards.length -1 ) {
-      this.addChildList(cards.slice(this._childList.length + 1));
+    } else if( this._childList.length -1 < cards.length ) {
+      this.addChildList(cards.slice(this._childList.length -1));
     } else {
       var i : Int = 1;
       while( i < this._childList.length ) {
@@ -88,9 +88,11 @@ class Cards_list extends PriGroup {
 
       cards.push(card);
     }
+    this.set_cards(cards);
+    this.paint();
   }
 
   public function get_rows() : Int {
-    return Math.floor(this.cards.length/columns);
+    return Math.floor(this.cards.length/columns) +1;
   }
 }
