@@ -109,9 +109,10 @@ class Protocol extends Wtpc {
 		return wait_response();
 	}
 
-	public function auth( privkey : haxe.io.Int32Array, token : Bytes, ?con_id : String ) : Null<Bool> {
+	public function auth( privkey : haxe.io.Bytes, token : Bytes, ?con_id : String ) : Null<Bool> {
+		var key : haxe.io.Int32Array = haxe.io.Int32Array.fromBytes(privkey);
 		var sh = new siphash.SipHash();
-		this.make_pet( con_id, Get('auth'), sh.reset(privkey).fast(token));
+		this.make_pet( con_id, Get('auth'), sh.reset(key).fast(token));
 		return wait_response();
 	}
 

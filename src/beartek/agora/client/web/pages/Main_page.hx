@@ -67,10 +67,13 @@ class Main_page extends PriScene {
       Main_page.overlay.x = this.maxX;
     }
 
+    if( navbar.current_index == null ) {
+      navbar.select(1);
+    }
   }
 
   private function change_main( e:PriEvent ) : Void {
-    this.hide_overlay();
+    if(this.has_overlay) this.hide_overlay();
 
     this.removeChild(this.main);
     this.removeChild(Main_page.overlay);

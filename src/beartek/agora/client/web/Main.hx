@@ -148,7 +148,7 @@ class Main extends PriApp {
     }
   }
 
-  private function on_privkey( privkey : haxe.io.Int32Array ) : Void {
+  private function on_privkey( privkey : haxe.io.Bytes ) : Void {
     PriPersists.delete('privkey');
     PriPersists.save('privkey', privkey);
 

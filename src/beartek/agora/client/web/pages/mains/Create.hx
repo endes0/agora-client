@@ -15,7 +15,11 @@ import priori.event.PriTapEvent;
 import priori.event.PriEvent;
 import ckeditor.CKEDITOR;
 import ckeditor.Config;
+import beartek.agora.client.web.comp.post.Viewer;
 import beartek.agora.types.Tpost;
+import beartek.agora.types.Tid;
+import beartek.agora.types.Types;
+import beartek.agora.types.Protocol_types;
 import datetime.DateTime;
 import htmlparser.HtmlDocument;
 
@@ -33,7 +37,7 @@ class Create extends PriScrollableContainer {
   }
 
   override private function setup() : Void {
-    var config : Config = cast( { } );
+    var config : ckeditor.Config = cast( { } );
     config.resize_enabled = false;
     config.height = '60vh';
 
@@ -47,7 +51,6 @@ class Create extends PriScrollableContainer {
     publish.context = PriBSContextualType.INFO;
     publish.corners = [100,100,100,100];
     publish.addEventListener(PriTapEvent.TAP, function( e : PriEvent ) : Void {
-      trace( CKEDITOR.instances );
       var post : Tpost = new Tpost({
         info: {
           title: title.value,
@@ -57,6 +60,10 @@ class Create extends PriScrollableContainer {
         tags: [],
         content: new HtmlDocument(Reflect.getProperty(CKEDITOR.instances, Reflect.fields(CKEDITOR.instances)[0]).getData())});
       G_connection.g().create_post(post);
+    });
+
+    G_connection.add_response_handler('post_id', function ( id : Id ) : Void {
+      Main_page.overlay.content = new Viewer(new Tid(id));
     });
 
     this.addChild(container);

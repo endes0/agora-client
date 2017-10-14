@@ -64,21 +64,30 @@ class Navbar extends PriGroup {
     }
   }
 
+  public function select( tab : Int ) : Void {
+    if(tab > this.children.length -1) throw 'Tried to select unexistent tab';
+
+    if( this.current_index != null ) {
+      this.children[this.current_index].set_normal();
+    }
+    this.current_index = tab;
+    this.children[tab].set_selected();
+    this.dispatchEvent(new PriEvent('Navchanged', this.children[tab].content));
+  }
+
   private function on_tab( e:PriEvent ) : Void {
     var i : Int = 0;
-    while( i < this.children.length ) {
+    while( i < this.children.length -1 ) {
       if( this.children[i].getPrid() == e.data ) {
         break;
       } else {
         i++;
       }
+
+      this.select(i);
     }
-    if( this.current_index != null ) {
-      this.children[this.current_index].set_normal();
-    }
-    this.current_index = i;
-    this.children[i].set_selected();
-    this.dispatchEvent(new PriEvent('Navchanged', this.children[i].content));
+
+
   }
 
 }

@@ -37,12 +37,20 @@ class Viewer extends PriGroup {
       title.text = post.get().info.title;
       subtitle.text = post.get().info.subtitle;
       content.getElement().append(post.get().content.toString());
+
+      if( this._setupCalled ) {
+        this.paint();
+      }
     }, 'post_viewer');
 
     G_connection.add_response_handler('post', function( raw_post : Post ) : Void {
       this.post = new Tpost(raw_post);
 
       content.getElement().append(post.get().content.toString());
+
+      if( this._setupCalled ) {
+        this.paint();
+      }
     }, 'post_viewer');
 
     if( id != new Tid(post_info.id) && post_info == null ) {
@@ -89,7 +97,6 @@ class Viewer extends PriGroup {
 
   override private function paint() : Void {
     post_container.width = this.width/1.1;
-
     post_container.y = this.y + 10;
     post_container.centerX = this.width/2;
 
