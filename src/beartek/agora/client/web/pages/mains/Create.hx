@@ -59,12 +59,12 @@ class Create extends PriScrollableContainer {
           publish_date: DateTime.now()},
         tags: [],
         content: new HtmlDocument(Reflect.getProperty(CKEDITOR.instances, Reflect.fields(CKEDITOR.instances)[0]).getData())});
-      G_connection.g().create_post(post);
+      G_connection.g().create_post(post, 'post_create');
     });
 
     G_connection.add_response_handler('post_id', function ( id : Id ) : Void {
       Main_page.overlay.content = new Viewer(new Tid(id));
-    });
+    }, 'post_create');
 
     this.addChild(container);
     this.addChild(title);

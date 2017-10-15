@@ -104,8 +104,7 @@ class Main extends PriApp {
   }
 
   public function on_close() : Void {
-    PriPersists.delete('privkey');
-    SceneManager.g().open(Login);
+    haxe.Timer.delay(this.start, 500);
     //Notify.info();
   }
 

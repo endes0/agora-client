@@ -53,7 +53,7 @@ class Viewer extends PriGroup {
       }
     }, 'post_viewer');
 
-    if( id != new Tid(post_info.id) && post_info == null ) {
+    if( post_info == null || id != new Tid(post_info.id) ) {
       G_connection.g().get_post(id, true, 'post_viewer');
     } else {
       #if dummy_server
@@ -61,10 +61,10 @@ class Viewer extends PriGroup {
       #else
         G_connection.g().get_post(id, false, 'post_viewer');
       #end
-    }
 
-    title.text = post_info.title;
-    subtitle.text = post_info.subtitle;
+      title.text = post_info.title;
+      subtitle.text = post_info.subtitle;
+    }
   }
 
   override private function setup() : Void {

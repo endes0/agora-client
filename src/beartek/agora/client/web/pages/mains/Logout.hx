@@ -14,6 +14,7 @@ class Logout extends PriGroup {
   public function new() {
     super();
     this.addEventListener(PriEvent.ADDED, function( e:PriEvent ) : Void {
+      PriPersists.delete('privkey');
       G_connection.close_connection();
     });
   }

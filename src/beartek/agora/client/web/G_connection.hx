@@ -56,6 +56,11 @@ class G_connection {
       for( handler in close_handlers ) {
         handler();
       }
+
+      handlers = new Map();
+      open_handlers = [];
+      close_handlers = [];
+      connection = null;
     };
   }
 
