@@ -23,11 +23,11 @@ class Protocol extends Wtpc {
 
 
 
-	public function new( host : String, ?wait_for_response : Bool = false, ?waiting_time : Int = 3000, ?wainting_checks : Int = 20, ?connection_creator : String->Dynamic, ?handler_register : Void->Void ) {
+	public function new( host : String, ?wait_for_response : Bool = false, ?waiting_time : Int = 3000, ?wainting_checks : Int = 20, secure : Bool = true, ?connection_creator : String->Dynamic, ?handler_register : Void->Void ) {
 		is_wait = wait_for_response;
 		wait_time = waiting_time;
 		wait_checks = wainting_checks;
-		super(host, connection_creator, handler_register);
+		super(host, secure, connection_creator, handler_register);
 	}
 
 	override function on_msg( msg : {id: String, type: String, data: Dynamic} ) {

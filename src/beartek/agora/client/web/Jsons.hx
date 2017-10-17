@@ -8,6 +8,6 @@ package beartek.agora.client.web;
 
 
  class Jsons {
-   static public var server : {name: String, host: String};
+   static public var server : {name: String, host: String, secure: Bool};
    static public var slogans : Array<String>;
  }

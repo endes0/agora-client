@@ -19,13 +19,17 @@ class G_connection {
   static var open_handlers : Array<Void -> Void> = [];
   static var close_handlers : Array<Void -> Void> = [];
 
-  static public function open_connection( host : String, async = false ) : Void {
+  static public function open_connection( host : String, async : Bool = false, secure : Bool = true ) : Void {
+    if( secure == false ) {
+      //TODO: notificar conexion insegura
+    }
+
     #if dummy_server
     connection = new Protocol('dummy-host', function( host : String ) : Dynamic {
       return new Dummy_server();
     });
     #else
-    connection = new Protocol(host, async);
+    connection = new Protocol(host, async, secure);
     #end
 
     connection.on_response = function ( data : {id: String, type: String, data: Dynamic} ) : Void {
