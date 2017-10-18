@@ -81,11 +81,11 @@ class Main extends PriApp {
 
   public function start() : Void {
     #if dummy_server
-    Jsons.server = {name: 'Dummy Server', host: 'dummy-host', secure: False};
+    Jsons.server = {name: 'Dummy Server', host: 'dummy-host', secure: false};
     #end
 
     if( Jsons.server != null ) {
-      G_connection.open_connection(Jsons.server.host, Jsons.server.secure);
+      G_connection.open_connection(Jsons.server.host, false, Jsons.server.secure);
     } else {
       //Notify.error();
     }

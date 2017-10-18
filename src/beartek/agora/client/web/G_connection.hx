@@ -21,6 +21,7 @@ class G_connection {
 
   static public function open_connection( host : String, async : Bool = false, secure : Bool = true ) : Void {
     if( secure == false ) {
+      trace( 'Insecure connection' );
       //TODO: notificar conexion insegura
     }
 
