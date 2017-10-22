@@ -39,7 +39,7 @@ class Lasts extends PriScrollableContainer {
   }
 
   private inline function get_lasts_posts() : Void {
-    G_connection.g().search({by: Recent_date}, 'lasts');
+    G_connection.g().search({order_by: Recent_date}, 'lasts');
   }
 
 }

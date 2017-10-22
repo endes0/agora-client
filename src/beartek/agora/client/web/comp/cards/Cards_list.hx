@@ -61,7 +61,7 @@ class Cards_list extends PriGroup {
     this.cards = cards;
 
     if( this._childList.length > cards.length -1 ) {
-      this._childList = [];
+      this.removeChildList(this._childList);
       this.addChild(header);
       this.addChildList(cards);
     } else if( this._childList.length -1 < cards.length ) {

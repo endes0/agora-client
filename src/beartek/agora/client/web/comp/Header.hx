@@ -12,22 +12,19 @@ import priori.style.font.PriFontStyleWeight;
 import priori.geom.PriColor;
 
 class Header extends PriGroup {
-  public var name : String = '';
+  public var name(default,set) : String = '';
   public var name_size(default,set) : Int = 45;
   public var c1(default,set) : PriColor = new PriColor(0xf44336);
   public var c2(default,set) : PriColor = new PriColor(0x2196f3);
 
-  var title : PriText;
-  var divider : PriGroup;
+  var title : PriText = new PriText();
+  var divider : PriGroup = new PriGroup();
 
   public function new() {
     super();
   }
 
   override private function setup() : Void {
-    title = new PriText();
-    divider = new PriGroup();
-
     var f_style : PriFontStyle = new PriFontStyle();
     f_style.weight = PriFontStyleWeight.THICK700;
     title.fontStyle = f_style;
@@ -60,6 +57,7 @@ class Header extends PriGroup {
 
   public function set_name( name : String ) : String {
     this.name = name;
+    this.title.text = name;
 
     this.paint();
 
@@ -68,6 +66,7 @@ class Header extends PriGroup {
 
   public function set_name_size( size : Int ) : Int {
     this.name_size = size;
+    this.title.fontSize = name_size;
 
     this.title.fontSize = size;
 

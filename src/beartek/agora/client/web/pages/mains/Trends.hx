@@ -39,7 +39,7 @@ class Trends extends PriScrollableContainer {
   }
 
   private inline function get_trends_posts() : Void {
-    G_connection.g().search({by: Most_popular}, 'trends');
+    G_connection.g().search({order_by: Most_popular}, 'trends');
   }
 
 }

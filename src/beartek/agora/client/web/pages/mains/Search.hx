@@ -48,10 +48,10 @@ class Search extends PriScrollableContainer {
     search_button.corners = [0,100,100,0];
     search_button.addEventListener(PriTapEvent.TAP, this.show_result);
 
-    result.header.name = 'Random result (Search not implemented yet)';
+    result.header.name = 'Random posts';
     G_connection.add_response_handler('search_result', function( results : Search_results ) : Void {
       result.create_cards_from_post(results.posts);
-    }, 'search_random');
+    }, 'search_results');
     this.get_random_result();
 
     this.addChild(search);
@@ -77,15 +77,18 @@ class Search extends PriScrollableContainer {
   }
 
   private inline function get_random_result() : Void {
-    G_connection.g().search({}, 'search_random');
+    G_connection.g().search({}, 'search_results');
   }
 
   private function show_result( e : PriEvent ) : Void {
-    if( search.value != null ) {
+    if( search.value != '' ) {
       this.result.header.name = 'Results';
+      this.result.cards = [];
 
-      result.create_cards_from_post(G_connection.g().search({contain: search.value}).posts);
+      G_connection.g().search({contain: search.value}, 'search_results');
     } else {
+      this.result.header.name = 'Random posts';
+      this.result.cards = [];
       this.get_random_result();
     }
   }
