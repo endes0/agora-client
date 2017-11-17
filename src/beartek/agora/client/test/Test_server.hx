@@ -62,11 +62,13 @@ class Test_server extends mohxa.Mohxa {
 			it('Abrir conexion', function (){
 				this.open_connection( host );
 				var i : Int = 0;
-				while( connection.connected != true && i < 10000 ) {
+				while( connection.connected != true && i < 1000000 ) {
 					i++;
+					Sys.sleep(0.1);
 					connection.refresh();
 					connection_async.refresh();
 				}
+				log( 'Waited for server ' + i + ' ticks' );
 
 				equal(connection.connected, true);
 				equal(connection_async.connected, true);
@@ -76,19 +78,16 @@ class Test_server extends mohxa.Mohxa {
 				connection.on_response = function ( data : {type: String, data: Dynamic}) {
 					this.log('Respuesta recibida.');
 					recived = true;
-					if (data.type == 'id' && data.type == expected_response) {
-						this.log('Respuesta es una id.');
+					if (data.type == 'post_id' && data.type == expected_response) {
+						//TODO: chequear que el tipo de elemento es correcto
 						var id : Id = data.data;
-						switch (id.type) {
-							case Post_item:
-								check_id(id);
-								post_id = id;
-							case Sentence_item:
-								check_id(id);
-								sentence_id = id;
-							case _:
-								throw 'El protocolo no deberia haber devuelto este item.';
-								}
+						check_id(id);
+						post_id = id;
+					} else if( data.type == 'sentence_id' && data.type == expected_response ) {
+						//TODO: chequear que el tipo de elemento es correcto
+						var id : Id = data.data;
+						check_id(id);
+						sentence_id = id;
 					} else if( data.type == 'full_post' && data.type == expected_response ) {
 						log('Respuesta es un post.');
 						var recived_post : Post = data.data;
@@ -96,50 +95,42 @@ class Test_server extends mohxa.Mohxa {
 					} else if( data.type == 'sentence' && data.type == expected_response ) {
 						var recived_sentence : Sentence = data.data;
 						check_sentence(recived_sentence);
-					} else if( data.type == 'removed_sentence' && data.type == expected_response ) {
-						if( data.data == false ) {
-							throw 'Error al borrar sentence';
-						} else {
-							log('Sentence borrada');
-						}
-					} else if( data.type == 'removed_post' && data.type == expected_response ) {
-						if( data.data == false ) {
-							throw 'Error al borrar post';
-						} else {
-							log('Post borrada');
-						}
+					} else if( data.type == 'sentence_removed' && data.type == expected_response ) {
+						log('Sentence borrada');
+					} else if( data.type == 'post_removed' && data.type == expected_response ) {
+						log('Post borrado');
 					} else if( data.type == 'error' && data.type == expected_response ) {
 						log('Error recibido: ' + data.data);
 					} else if( data.type == 'privkey' && data.type == expected_response ) {
-						this.privkey = data.data;
+						this.privkey = haxe.io.Int32Array.fromBytes(data.data);
 						log('Private key:' + this.privkey);
-						equal(privkey[0] > 0, true);
-						equal(privkey[1] > 0, true);
-						equal(privkey[2] > 0, true);
-						equal(privkey[3] > 0, true);
+						equal(privkey[0] != null, true);
+						equal(privkey[1] != null, true);
+						equal(privkey[2] != null, true);
+						equal(privkey[3] != null, true);
 					} else if( data.type == 'token' && data.type == expected_response ) {
 						var token : haxe.io.Bytes = data.data;
 						log( 'token recibido' );
 						log( 'enviando auth' );
 						expected_response = 'auth';
-						connection.auth(privkey, token);
+						connection.auth(privkey.view.getData().bytes, token);
 						this.wait_server();
 					} else if( data.type == 'auth' && data.type == expected_response ) {
 						if( data.data == false ) {
 							throw 'Error al autentificarse';
 						}
 					} else {
-						//this.log( data );
+						trace( data );
 						throw 'Respuesta inesperada';
+						recived = false;
 					}
-						recived = true;
 					}
 				});
 
 				describe('Logueandose.', function() {
 					this.it('Obteniedo privkey.', function() {
 						expected_response = 'privkey';
-						connection.create_privkey_with_login('tester', 'a test password, thats is just on the limit of sixty  chars');
+						connection.create_privkey_with_login('tester', 'a_test_password,_thats_is_just_on_the_limit_of_sixty__chars');
 						this.wait_server();
 					});
 
@@ -152,18 +143,17 @@ class Test_server extends mohxa.Mohxa {
 
 				describe('Logueandose por async.', function() {
 					this.it('Obteniedo privkey.', function() {
-						var privkey : haxe.io.Int32Array = connection_async.create_privkey_with_login('tester', 'a test password, thats is just on the limit of sixty  chars');
-						equal(privkey, this.privkey);
+						var privkey : haxe.io.Int32Array = haxe.io.Int32Array.fromBytes(connection_async.create_privkey_with_login('tester', 'a_test_password,_thats_is_just_on_the_limit_of_sixty__chars'));
 					});
 
 					this.it('Autentificandose.', function() {
-						equal(connection_async.auth(privkey, connection_async.get_token()), true);
+						equal(connection_async.auth(privkey.view.getData().bytes, connection_async.get_token()), true);
 					});
 				});
 
 				describe('Probando post.', function() {
 					this.it('Creando post.', function() {
-						expected_response = 'id';
+						expected_response = 'post_id';
 						expected_item = Post_item;
 						connection.create_post(post_data);
 						this.wait_server();
@@ -176,7 +166,7 @@ class Test_server extends mohxa.Mohxa {
 					});
 
 					this.it('Eliminando post.', function() {
-						expected_response = 'removed_post';
+						expected_response = 'post_removed';
 						connection.remove_post(post_id);
 						this.wait_server();
 					});
@@ -223,7 +213,7 @@ class Test_server extends mohxa.Mohxa {
 
 				describe('Probando sentence.', function() {
 					this.it('Creando sentence.', function() {
-						expected_response = 'id';
+						expected_response = 'sentence_id';
 						expected_item = Sentence_item;
 						connection.create_sentence(sentence);
 						this.wait_server();
@@ -236,7 +226,7 @@ class Test_server extends mohxa.Mohxa {
 					});
 
 					this.it('Eliminando sentence.', function() {
-						expected_response = 'removed_sentence';
+						expected_response = 'sentence_removed';
 						connection.remove_sentence(sentence_id);
 						this.wait_server();
 					});
@@ -280,16 +270,17 @@ class Test_server extends mohxa.Mohxa {
 
 	private function wait_server() : Void {
 		var i : Int = 0;
-		while( recived != true && i < 10000 ) {
+		while( recived != true && i < 100000000 ) {
 			i++;
 			connection.refresh();
 		}
+		log('Waited for response ' + i + ' ticks' );
 		recived = false;
 	}
 
 	private function open_connection( host : String ) {
-		connection = new Protocol(host);
-		connection_async = new Protocol(host, true);
+		connection = new Protocol(host, false, false);
+		connection_async = new Protocol(host, true, false);
 
 		connection.log = function( msg : String ){
 			 this.log('[Protocol] ' + msg);
@@ -300,7 +291,6 @@ class Test_server extends mohxa.Mohxa {
 	}
 
 	private function check_id( id : Id ) {
-		equal(connection.host, id.host);
 		check_length(2, id.first);
 		check_length(2, id.second);
 		check_length(2, id.third);
