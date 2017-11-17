@@ -17,16 +17,17 @@ class Protocol extends Wtpc {
 	var is_wait : Bool = false;
 	var wait_time : Int = 0;
 	var wait_checks : Int = 0;
+	var checks : Int = 0;
 
 	var queque : Any = null;
-	var queque_error : Error = null;
+	var queque_error : Error = null; //convertir a Array
 
 
 
-	public function new( host : String, ?wait_for_response : Bool = false, ?waiting_time : Int = 3000, ?wainting_checks : Int = 20, secure : Bool = true, ?connection_creator : String->Dynamic, ?handler_register : Void->Void ) {
+	public function new( host : String, ?wait_for_response : Bool = false, ?waiting_time : Int = 3000, ?wainting_checks : Int = 2000, secure : Bool = true, ?connection_creator : String->Dynamic, ?handler_register : Void->Void ) {
 		is_wait = wait_for_response;
 		wait_time = waiting_time;
-		wait_checks = wainting_checks;
+		wait_checks = wainting_checks * wait_time;
 		super(host, secure, connection_creator, handler_register);
 	}
 
@@ -43,44 +44,48 @@ class Protocol extends Wtpc {
 		}
 	}
 
-	private function wait_response( ?i = 0) : Dynamic {
+	private function wait_response() : Dynamic {
 		if (is_wait) {
-			if( i < wait_checks ) {
-				if (queque != null || queque_error !=null) {
-				  if( i == 0 ) {
-						var q : Dynamic = queque;
+			queque_error = null;
+			while( checks < wait_checks ) {
+				this.wait();
+				if (queque != null) {
+					var q : Dynamic = queque;
 
-						queque = null;
+					queque = null;
 
-						if( q.type == 'error' ) {
-							queque_error = q.data;
-							return null;
-						} else {
-							return q.data;
-						}
-				  } else {
-				  	return null;
-				  }
-				} else {
-					this.refresh();
-					this.wait(function() : Void {
-						this.wait_response(i++);
-					});
-
-					return this.queque;
+					if( q.type == 'error' ) {
+						this.log( 'Error: ' + q.data );
+						queque_error = q.data;
+						checks = 0;
+						return null;
+					} else {
+						checks = 0;
+						return q.data;
+					}
+				} else if( queque_error != null ) {
+					this.log( 'Error: ' + queque_error );
+					return null;
 				}
-			} else {
-				var err : Error = {type: 0, msg: 'Time out'};
-				this.queque == err;
-				return null;
 			}
+			trace( 'Time out' );
+			var err : Error = {type: 0, msg: 'Time out'};
+			this.queque == err;
+			checks = 0;
+			return null;
 		} else {
 			return null;
 		}
 	}
 
-	private inline function wait(handler:Void->Void):Void {
-		haxe.Timer.delay(handler, Std.int(wait_time/wait_checks));
+	private function check() : Void {
+		this.refresh();
+		checks++;
+	}
+
+	private inline function wait():Void {
+		//haxe.Timer.delay(this.check, Std.int(wait_time/wait_checks)+1); dont work
+		this.check();
 	}
 
 	private function generate_loginkey( username : String, password : String ) : haxe.Int64 {
@@ -121,7 +126,7 @@ class Protocol extends Wtpc {
 		return wait_response();
 	}
 
-	public function create_privkey_with_login( username : String, password : String, ?con_id : String ) : Null<haxe.io.Int32Array> {
+	public function create_privkey_with_login( username : String, password : String, ?con_id : String ) : Null<haxe.io.Bytes> {
 		var loginkey : haxe.Int64 = this.generate_loginkey(username, password);
 
 		this.make_pet(con_id, Create('privkey_with_login'), loginkey);
@@ -159,16 +164,15 @@ class Protocol extends Wtpc {
 		if( post.is_draft() ) {
 			this.make_pet(con_id, Create('post'), post);
 		} else {
-			var id : Id = post.get().info.id;
-			post.to_draft();
-			this.make_pet(con_id, Create('edit_post'), {id: id, data: post});
+			this.make_pet(con_id, Create('edit_post'), post);
 		}
 		return wait_response();
 	}
 
 	public function remove_post( id : Id, ?con_id : String ) : Null<Bool> {
 		this.make_pet(con_id, Remove('post'), new Tid(id));
-		return wait_response();
+		this.wait_response();
+		return if(this.queque_error == null || this.queque_error.type == 10) true else false;
 	}
 
 	public function report( report : Report, ?con_id : String ) : Null<Bool> {
@@ -187,9 +191,7 @@ class Protocol extends Wtpc {
 		if( sentence.is_draft() ) {
 			this.make_pet(con_id, Create('sentence'), sentence);
 		} else {
-			var id : Id = sentence.get().id;
-			sentence.to_draft();
-			this.make_pet(con_id, Create('edit_sentence'), {id: id, data: sentence});
+			this.make_pet(con_id, Create('edit_sentence'), sentence);
 		}
 		return wait_response();
 	}
