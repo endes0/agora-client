@@ -17,6 +17,7 @@ class Test_server extends mohxa.Mohxa {
 	var connection : Protocol;
 	var connection_async : Protocol;
 	var recived : Bool = false;
+	var stamp_waiting : Float = 0;
 
 	var expected_response : String;
 	var expected_item : Items_types;
@@ -62,13 +63,14 @@ class Test_server extends mohxa.Mohxa {
 			it('Abrir conexion', function (){
 				this.open_connection( host );
 				var i : Int = 0;
+				var stamp : Float = haxe.Timer.stamp();
 				while( connection.connected != true && i < 1000000 ) {
 					i++;
 					Sys.sleep(0.1);
 					connection.refresh();
 					connection_async.refresh();
 				}
-				log( 'Waited for server ' + i + ' ticks' );
+				log( 'Waited for server ' + i + ' ticks, ' + (haxe.Timer.stamp() - stamp)*1000 + ' ms' );
 
 				equal(connection.connected, true);
 				equal(connection_async.connected, true);
@@ -78,6 +80,7 @@ class Test_server extends mohxa.Mohxa {
 				connection.on_response = function ( data : {type: String, data: Dynamic}) {
 					this.log('Respuesta recibida.');
 					recived = true;
+					log('Waited for response ' + (haxe.Timer.stamp() - this.stamp_waiting)*1000 + ' ms');
 					if (data.type == 'post_id' && data.type == expected_response) {
 						//TODO: chequear que el tipo de elemento es correcto
 						var id : Id = data.data;
@@ -270,11 +273,11 @@ class Test_server extends mohxa.Mohxa {
 
 	private function wait_server() : Void {
 		var i : Int = 0;
+		this.stamp_waiting = haxe.Timer.stamp();
 		while( recived != true && i < 100000000 ) {
 			i++;
 			connection.refresh();
 		}
-		log('Waited for response ' + i + ' ticks' );
 		recived = false;
 	}
 

@@ -1,13 +1,13 @@
 #integrate files to classpath
 -cp src
--cp agora-common/src
+-cp Agora-common/src
 
 #this class wil be used as entry point for your app.
 -main beartek.agora.client.test.Test_unit
 
 #haxe libraries for your app.
 dependencies.hxml
-agora-common/dependencies.hxml
+Agora-common/dependencies.hxml
 -lib mohxa
 
 #Generate source map and add debug information
@@ -17,6 +17,6 @@ agora-common/dependencies.hxml
 #"-dce no" : do not remove unused code
 #"-dce std" : remove unused code in the std lib (default)
 #"-dce full" : remove all unused code
--dce full
+-dce std
 
 -neko bin/test.n
