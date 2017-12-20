@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Agora Web Client</title>
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <!-- <script integrity="sha284-HkipI22XmPfYh/sTVk+3rOcb4Gtfhu5oMP6n/ksrA/VA54SFDBrQcqUfy7+9j5CR%" src="js/webcomponents/webcomponents-loader.js"></script> -->
+    <script src="http://storage.sakuradesigner.microclimat.com/apps/html5/js/CustomElements.min.js" charset="utf-8"></script>
+    <script src="js/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="></script>
+    <script src="js/semantic.min.js"></script>
+    <script src="js/main.js"></script>
+    <style media="screen">
+      @keyframes divide {
+        from {width: 99vw;}
+        to {width: 50vw;}
+      }
+
+
+      body {
+        overflow: hidden;
+      }
+
+      .sections-row {
+        display: flex;
+        width: 150%;
+        height: inherit;
+      }
+
+      .background {
+        height: inherit;
+        background-image: url('assets/backround0.jpg');
+        background-size: cover;
+        filter: blur(10px);
+      }
+
+      .division {
+        animation-name: divide;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease;
+        width: 50vw;
+      }
+
+      section {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #section2 {
+        width: 50vw;
+      }
+
+    </style>
+</head>
+<body>
+<div class="sections-row">
+  <section id="section1">
+    <div class="background">
+      <beartek-comps-animated_gradient></beartek-comps-animated_gradient>
+    </div>
+
+
+    <beartek-comps-loader id="loader"></beartek-comps-loader>
+    <beartek-comps-enter id="enter" on-click="beartek.agora.client.web.Main._instance.split()" hidden="true"></beartek-comps-enter>
+  </section>
+  <section id="section2" hidden="true">
+    <beartek-comps-login_form submit="beartek.agora.client.web.Main._instance.login(this);"></beartek-comps-login_form>
+  </section>
+</div>
+<script>
+  window.addEventListener('WebComponentsReady', function() {
+    beartek.agora.client.web.Main.init();
+  });
+</script>
+</body>
+</html>

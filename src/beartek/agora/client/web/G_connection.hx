@@ -1,10 +1,7 @@
+//Under GNU AGPL v3, see LICENCE
+
 package beartek.agora.client.web;
 
-/**
- * @author Beartek
- * GNU AGPL v3
- * https://taksio.tk/beartek/agora
- */
 import haxe.io.Bytes;
 import beartek.agora.client.Protocol;
 #if dummy_server
@@ -73,7 +70,7 @@ class G_connection {
     connection.close();
   }
 
-  static public function g() : Null<Dynamic> {
+  static public function g() : Null<Protocol> {
     if( connection != null ) {
       return connection;
     } else {

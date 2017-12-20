@@ -1,3 +1,6 @@
+#copy templates files
+-cmd cp -r template/* bin/web/
+
 #Import config
 config_debug.hxml
 
@@ -5,7 +8,7 @@ config_debug.hxml
 -main beartek.agora.client.web.Main
 
 #JavaScript target
--js build/js/priori.js
+-js bin/web/js/main.js
 
 #You can use -D source-map-content (requires Haxe 3.1+) to have the .hx
 #files directly embedded into the map file, this way you only have to

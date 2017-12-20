@@ -1,0 +1,74 @@
+{
+  "translations": [
+  {
+      "fieldName": "loading",
+      "value": "Cargando.",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "client-name",
+      "value": "Cliente web agora.",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "enter",
+      "value": "Entrar",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "login",
+      "value": "Iniciar sesion",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "register",
+      "value": "Registrarse",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "change-server",
+      "value": "Cambiar servidor",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "username",
+      "value": "Usuario",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "password",
+      "value": "Contraseña",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "empty-field",
+      "value": "Este campo no puede estar vacio",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "max-username",
+      "value": "El nombre no puede ser mas largo de 16 caracteres",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "min-password",
+      "value": "La contraseña tiene que tener minimo 8 caracteres",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "min-password",
+      "value": "La contraseña tiene que tener minimo 8 caracteres",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "max-password",
+      "value": "La contraseña no puede superar los 59 caracteres",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "bad-loginkey",
+      "value": "Los datos de inicio de sesion son incorrectos",
+      "locale": "es_ES"
+  }
+  ]
+}

@@ -35,12 +35,7 @@ class Protocol extends Wtpc {
 		if (is_wait){
 			this.queque = msg;
 		} else {
-			if (msg.type == 'Error') {
-				this.on_response(msg);
-			} else {
-				this.on_response(msg);
-			}
-
+			this.on_response(msg);
 		}
 	}
 

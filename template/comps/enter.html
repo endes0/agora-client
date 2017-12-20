@@ -1,0 +1,29 @@
+<style media="screen">
+.heading {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  color: white;
+  width: 100%;
+}
+.enter {
+  position: relative;
+  bottom: 61.16%;
+  width: 100%;
+}
+</style>
+
+
+<h1 class="heading">{{client-name}}</h1>
+<h2 class="heading" id="subtext"></h2>
+<div class="ui two column centered grid">
+  <div class="colum">
+    <div class="big ui inverted blue animated button" tabindex="0" onclick="this.host.clicked()">
+      <div class="visible content">{{enter}}</div>
+      <div class="hidden content">
+        <i class="right arrow icon"></i>
+      </div>
+    </div>
+  </div>
+</div>

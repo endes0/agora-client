@@ -1,0 +1,70 @@
+<style media="screen">
+  canvas {
+    display: block;
+    vertical-align: bottom;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+      text-shadow:0 0 1px white;
+      }
+    50% {
+      opacity: 0;
+      text-shadow:0 0 10px white;
+      }
+    100% {
+      opacity: 1;
+      text-shadow:0 0 1px white;
+      }
+  }
+  .blink {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: white;
+    top: 40vh;
+    width: 100%;
+    z-index: 1;
+    animation: blink 2s infinite;
+  }
+
+  @keyframes rotation {
+    from {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
+    }
+  }
+  #particles {
+    overflow: hidden;
+    width: 100vmax;
+    height: 100vmax;
+    animation: rotation 20s infinite;
+    margin-top: -70vh;
+  }
+
+  .loader {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 99%;
+    height: 99%;
+  }
+</style>
+
+<div class="loader">
+  <h2 class="blink">{{loading}}</h2>
+  <div id="particles"></div>
+</div>

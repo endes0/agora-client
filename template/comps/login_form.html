@@ -1,0 +1,32 @@
+<div class="ui one column stackable center aligned page grid">
+   <div class="column twelve wide" style="top: 30vh">
+     <!--   quitar esto de aqui !-->
+     <div class="ui three item secondary pointing menu">
+       <a class="item active">{{login}}</a>
+       <a class="item">{{register}}</a>
+       <a class="item">{{change-server}}</a>
+     </div>
+     <div class="ui segment">
+       <form id="login" method="post" class="ui form" onsubmit="return this.host.send_form(this);">
+         <h4 id="login-in"></h4>
+         <div class="field">
+         <label style="text-align: left; padding-left: 4%">{{username}}</label>
+         <div class="ui left icon input">
+           <input name="username" placeholder="{{username}}" type="text">
+           <i class="user circle icon"></i>
+         </div>
+       </div>
+       <div class="field">
+         <label style="text-align: left; padding-left: 4%">{{password}}</label>
+         <div class="ui left icon input">
+           <input name="password" placeholder="{{password}}" type="password">
+           <i class="privacy icon"></i>
+         </div>
+       </div>
+       <div class="ui error message"></div>
+       <button class="ui submit button" type="submit">{{login}}</button>
+       </form>
+     </div>
+
+   </div>
+</div>

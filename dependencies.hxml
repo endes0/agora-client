@@ -1,6 +1,3 @@
--lib priori
--lib priori-scenemanager
--lib priori-bootstrap
--lib priori-fontawesome
+-lib tamina
 -lib actuate
 -lib ckeditor-externs

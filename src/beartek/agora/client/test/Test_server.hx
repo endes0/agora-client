@@ -1,10 +1,7 @@
+//Under GNU AGPL v3, see LICENCE
+
 package beartek.agora.client.test;
 
-/**
- * @author Beartek
- * GNU AGPL v3
- * https://taksio.tk/beartek/agora
- */
 import beartek.agora.client.test.Dummy_server;
 import beartek.agora.types.Types;
 import beartek.agora.types.Tpost;
