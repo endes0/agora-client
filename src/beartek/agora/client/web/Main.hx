@@ -60,7 +60,11 @@ import htmlparser.HtmlDocument;
       if( Storage.get('privkey') != null ) {
         G_connection.g().auth(Storage.get('privkey'), G_connection.token);
       } else {
-        this.show_enter();
+        if( js.Browser.document.getElementById('enter') == null ) {
+          js.Browser.document.
+        } else {
+          this.show_enter();
+        }
       }
     });
   }
@@ -98,7 +102,6 @@ import htmlparser.HtmlDocument;
     trace( error );
     if( error.type == 11 ) {
       if( js.Browser.document.getElementsByClassName('ui error message')[0].classList.contains('visible') ) {
-        trace( 'd' );
         untyped $('.ui.error.message').transition('shake');
       } else {
         untyped $('.ui.error.message').transition('swing down');
@@ -114,6 +117,7 @@ import htmlparser.HtmlDocument;
       this.show_dashboard();
     } else {
       js.Browser.document.getElementsByClassName('ui error message')[0].innerText = LocalizationManager.instance.getString('bad-auth');
+      Storage.remove('privkey');
     }
   }
 

@@ -69,6 +69,31 @@
       "fieldName": "bad-loginkey",
       "value": "Los datos de inicio de sesion son incorrectos",
       "locale": "es_ES"
+  },
+  {
+      "fieldName": "me",
+      "value": "Yo",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "search",
+      "value": "Buscar",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "trends",
+      "value": "Tendencia",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "lasts",
+      "value": "Novedad",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "logout",
+      "value": "Cerrar sesion",
+      "locale": "es_ES"
   }
   ]
 }
