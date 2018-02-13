@@ -94,6 +94,16 @@
       "fieldName": "logout",
       "value": "Cerrar sesion",
       "locale": "es_ES"
+  },
+  {
+      "fieldName": "results",
+      "value": "Resultados",
+      "locale": "es_ES"
+  },
+  {
+      "fieldName": "read_more",
+      "value": "Leer mas",
+      "locale": "es_ES"
   }
   ]
 }

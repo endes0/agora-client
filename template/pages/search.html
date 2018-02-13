@@ -1,0 +1,16 @@
+<div class="ui five column centered vertically divided grid" style="padding-top: 4%">
+  <div class="row">
+    <div class="nine wide column">
+      <div class="ui fluid action input">
+        <input placeholder="{{search}}" type="text">
+        <button class="ui inverted blue right labeled icon button" onclick="this.host.search()"><i class="search icon"></i> {{search}} </button>
+      </div>
+      <h2 class="ui header" style="text-align: center">{{results}}</h2>
+    </div>
+  </div>
+  <div class="row"></div>
+</div>
+
+<div id="results" class="ui five column grid" style="overflow: auto; height: 70vh">
+
+</div>

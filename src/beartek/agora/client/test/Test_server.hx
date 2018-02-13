@@ -1,5 +1,4 @@
 //Under GNU AGPL v3, see LICENCE
-
 package beartek.agora.client.test;
 
 import beartek.agora.client.test.Dummy_server;

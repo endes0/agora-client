@@ -61,7 +61,7 @@ import htmlparser.HtmlDocument;
         G_connection.g().auth(Storage.get('privkey'), G_connection.token);
       } else {
         if( js.Browser.document.getElementById('enter') == null ) {
-          js.Browser.document.
+          js.Browser.document.location.reload();
         } else {
           this.show_enter();
         }
